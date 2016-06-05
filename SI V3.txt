@@ -71,7 +71,7 @@ void SetBackGround_s( char x[][150] )
 void display(char x[][150],int from )
 {
 		system("cls");
-		for(int i = from-72 ; i<2400 ; i++)
+		for(int i = from-72 ; i<=from ; i++)
 		{
 			for(int k=0 ; k<150 ; k++)
 			{
@@ -127,15 +127,8 @@ void AnimateHero(char x[][150] , int &hr, int &hc , char key , int &from)
 {
 	if(key == '\0')
 	{
-		//hr++;
-		//from--;
-	}
-	if (key == 's')
-	{ 	
-		if(hr+17 <2399)
-		{hr++;
-		if(hr+13>from-10 && from<2399)
-		{from++;}}
+		hr--;
+		from--;
 	}
 	if (key == 'w')
 	{ 
@@ -146,6 +139,13 @@ void AnimateHero(char x[][150] , int &hr, int &hc , char key , int &from)
 			if(hr<from-50&&from-72>0)
 			{from--;}}
 		}
+	}
+	if (key == 's')
+	{ 	
+		if(hr+17 <2399)
+		{hr++;
+		if(hr+13>from-10 && from<2399)
+		{from++;}}
 	}
 	if (key == 'd')
 	{ 	
@@ -161,9 +161,11 @@ void generate_bullet(char x[][150],int posr[],int posc[],int count)
 		
 			for(int i=0;i<=count;i++)
 			{
+				
 				if(posr[i]!=-1)
 				{
-					x[posr[i]][posc[i]]= '^';
+					x[posr[i]][posc[i]]= '+';
+
 						posr[i]--;
 				}
 				if(posr[i]<=0 )
@@ -187,6 +189,7 @@ void main()
 	int key = '\0';
 	int i , k;
 	int countp = 0;
+	int timer =5;
 	for (i=0;i<10000;i++)
 	{
 		posr[i]=-1;
@@ -202,7 +205,12 @@ void main()
 			SetHero_in_Mat(x,hr,hc,key);
 			display(x , from);
 			Sleep(200);
-			key = '\0';
+			if(timer >=2)
+			{
+				key = '\0';
+				timer =0;
+			}
+			timer++;
 		}
 		
 		key = getch();
@@ -214,22 +222,23 @@ void main()
 		{
 			if(countp % 2 == 0)
 			{
-			posr[countp]= hr+3;
-			posc[countp]= hc+4;
-			countp++;
+				posr[countp]= hr+3;
+				posc[countp]= hc+4;
+				countp++;
 			}
 			else if(countp % 2 == 1)
 			{
-			posr[countp]= hr+3;
-			posc[countp]= hc+16;
-			countp++;
+				posr[countp]= hr+3;
+				posc[countp]= hc+16;
+				countp++;
 			}
 		}
+		SetBackGround_s( x );
 		generate_bullet(x,posr,posc,countp);
 		AnimateHero(x,hr,hc,key,from);
 		SetHero_in_Mat(x,hr,hc,key);
 		display(x , from);
-
+		
 	}
 }
 };
@@ -443,12 +452,12 @@ display(x);
 };
 void main()
 {
-	startmenu sm;
+	//startmenu sm;
 	level l1;
 	
-	sm.main2();
+	//sm.main2();
 
-	if(sm.mode == 1)
+	//if(sm.mode == 1)
 	{
 		l1.main();
 	}
