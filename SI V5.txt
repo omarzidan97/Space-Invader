@@ -614,12 +614,12 @@ display(x);
 };
 void main()
 {
-	//startmenu sm;
+	startmenu sm;
 	level l1;
 	
-	//sm.main2();
+	sm.main2();
 
-	//if(sm.mode == 1)
+	if(sm.mode == 1)
 	{
 		l1.main();
 	}
